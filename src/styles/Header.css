@@ -1,0 +1,29 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-items ul li:hover{
+    color:black;
+    transition:.5s linear ;
+}
+.fa-head{
+    display: none;
+}
+@media screen and (max-width:400px){
+    header{
+        display: unset;
+    }
+    header img{
+        width: 100%;
+        text-align: center;
+    }
+    header .nav-items ul {
+        margin: 0 1rem;
+        justify-content: space-evenly;
+
+    }
+    header .nav-items ul li{
+        margin: 0 5px;
+    }
+}
