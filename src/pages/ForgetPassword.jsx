@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import img1 from "../assets/password.jpg";
-import OAuth from "./OAuth";
+import OAuth from "../components/OAuth";
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
   const onChangeEmail = (events) => {

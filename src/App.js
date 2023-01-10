@@ -1,12 +1,16 @@
-import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
-import './App.css';
-import Home from './pages/Home';
-import Offers from './pages/Offers';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Profile from './pages/Profile';
-import Header from './pages/Header';
-import ForgetPassword from './pages/ForgetPassword';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Home from "./pages/Home";
+import Offers from "./pages/Offers";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
+import Header from "./components/Header";
+import ForgetPassword from "./pages/ForgetPassword";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import {Toaster} from 'react-hot-toast';
+
 function App() {
   return (
     <>
@@ -21,6 +25,19 @@ function App() {
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </Router>
+      <Toaster />
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }

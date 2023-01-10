@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import img1 from "../assets/sign-in3.jpg";
-import OAuth from "./OAuth";
+import OAuth from "../components/OAuth";
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({

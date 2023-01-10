@@ -2,22 +2,62 @@ import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import img1 from "../assets/sign-up.jpg";
-import OAuth from "./OAuth";
+import OAuth from "../components/OAuth";
+import { getAuth, createUserWithEmailAndPassword ,updateProfile} from "firebase/auth";
+import { db } from "../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+// import {toast} from "react-toastify";
+import { toast } from 'react-hot-toast';
+
+
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    name:"",
+    name: "",
     email: "",
     password: "",
   });
-  const { name,email, password } = formData;
+  
+  const { name, email, password } = formData;
+  const navigate=useNavigate();
+
   const onChangeEmail = (events) => {
-    console.log(events.target.value);
+    // console.log(events.target.value);
     setFormData((prevState) => ({
       ...prevState,
       [events.target.id]: events.target.value,
     }));
   };
+
+
+  const onSubmit = async (events) => {
+    events.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      updateProfile(auth.currentUser,{
+        displayName:name
+      })
+      const user = userCredential.user;
+      const formDataCopy={...formData};
+      delete formDataCopy.password;
+      formDataCopy.timestamp=serverTimestamp();
+
+      await setDoc(doc(db, "users" , user.uid) ,formDataCopy);
+      navigate("/");
+      toast.success("Welcome To House Market");
+    } catch (error) {
+      toast.error("Something went wrong with the registration");
+      console.log(error);
+    }
+  };
+
+
   return (
     <section>
       <div className="text-3xl text-center mt-6 font-bold">Sign Up</div>
@@ -27,7 +67,7 @@ const SignUp = () => {
           <img className="w-full rounded-2xl" src={img1} alt="sign-in-img" />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form autoComplete="off">
+          <form autoComplete="off" onSubmit={onSubmit}>
             <input
               className="w-full mb-6 px-3 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
               value={name}
@@ -84,13 +124,13 @@ const SignUp = () => {
                 </Link>
               </p>
             </div>
+            <button
+              className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
+              type="submit"
+            >
+              Sign up
+            </button>
           </form>
-          <button
-            className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
-            type="submit"
-          >
-            Sign up
-          </button>
           <div className="my-4 items-center before:border-t flex before:flex-1  before:border-gray-500 after:border-t after:flex-1  after:border-gray-500">
             <p className="text-center font-semibold mx-4">OR</p>
           </div>
