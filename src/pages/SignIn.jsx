@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import img1 from "../assets/sign-in3.jpg";
 import OAuth from "../components/OAuth";
+import { signInWithEmailAndPassword ,getAuth} from "firebase/auth";
+import { toast } from "react-hot-toast";
+
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -10,6 +13,8 @@ const SignIn = () => {
     password: "",
   });
   const { email, password } = formData;
+  const navigate = useNavigate();
+
   const onChangeEmail = (events) => {
     console.log(events.target.value);
     setFormData((prevState) => ({
@@ -17,6 +22,19 @@ const SignIn = () => {
       [events.target.id]: events.target.value,
     }));
   };
+  async function onSubmit(events){
+    events.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(auth,email,password);
+      console.log(userCredential.user)
+      if (userCredential.user) {
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("Bad user credentials");
+    }
+  }
   return (
     <section>
       <div className="text-3xl text-center mt-6 font-bold">Sign In</div>
@@ -26,7 +44,7 @@ const SignIn = () => {
           <img className="w-full rounded-2xl" src={img1} alt="sign-in-img" />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form autoComplete="off">
+          <form autoComplete="off" onSubmit={onSubmit}>
             <input
               className="w-full mb-6 px-3 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
               value={email}
@@ -75,13 +93,13 @@ const SignIn = () => {
                 </Link>
               </p>
             </div>
-          </form>
           <button
             className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
             type="submit"
           >
             Sign in
           </button>
+          </form>
           <div className="my-4 items-center before:border-t flex before:flex-1  before:border-gray-500 after:border-t after:flex-1  after:border-gray-500">
             <p className="text-center font-semibold mx-4">OR</p>
           </div>
