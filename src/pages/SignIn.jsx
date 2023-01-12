@@ -16,7 +16,6 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const onChangeEmail = (events) => {
-    console.log(events.target.value);
     setFormData((prevState) => ({
       ...prevState,
       [events.target.id]: events.target.value,
@@ -29,6 +28,7 @@ const SignIn = () => {
       const userCredential = await signInWithEmailAndPassword(auth,email,password);
       console.log(userCredential.user)
       if (userCredential.user) {
+        toast.success("welcome to House Market");
         navigate("/");
       }
     } catch (error) {

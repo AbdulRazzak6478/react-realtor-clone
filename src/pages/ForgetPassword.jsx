@@ -1,4 +1,6 @@
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import img1 from "../assets/password.jpg";
 import OAuth from "../components/OAuth";
@@ -8,6 +10,17 @@ const ForgetPassword = () => {
     console.log(events.target.value);
     setEmail(events.target.value);
   };
+
+  async function onSubmit(events){
+    events.preventDefault();
+    try {
+      const auth = getAuth();
+      await sendPasswordResetEmail(auth,email);
+      toast.success("Email was set");
+    } catch (error) {
+      toast.error("Could not send reset password");
+    }
+  }
   return (
     <section>
       <div className="text-3xl text-center mt-6 font-bold">Forget Password</div>
@@ -17,7 +30,7 @@ const ForgetPassword = () => {
           <img className="w-full rounded-2xl" src={img1} alt="sign-in-img" />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form autoComplete="off">
+          <form autoComplete="off" onSubmit={onSubmit}>
             <input
               className="w-full mb-6 px-3 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
               value={email}
@@ -45,13 +58,13 @@ const ForgetPassword = () => {
                 </Link>
               </p>
             </div>
-          </form>
           <button
             className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
             type="submit"
           >
             send reset password
           </button>
+          </form>
           <div className="my-4 items-center before:border-t flex before:flex-1  before:border-gray-500 after:border-t after:flex-1  after:border-gray-500">
             <p className="text-center font-semibold mx-4">OR</p>
           </div>
