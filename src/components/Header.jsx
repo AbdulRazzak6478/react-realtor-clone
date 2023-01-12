@@ -16,8 +16,6 @@ const Header = () => {
     <div className='bg-white border-b shadow-md sticky top z-50'>
       <header className=' px-3 max-w-6xl mx-auto'>
         <div className="flex"><img src={svg} alt="realtor-logo" className='h-5 cursor-pointer' onClick={()=>navigate("/")}/>
-        <i class="fa-solid fa-head fa-xmark fa-2x"></i>
-        <i class="fa-solid fa-head fa-bars fa-2x"></i>
         </div>
         <div className='nav-items'>
           <ul className='flex space-x-10 '>

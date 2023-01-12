@@ -26,7 +26,6 @@ const SignIn = () => {
     try {
       const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(auth,email,password);
-      console.log(userCredential.user)
       if (userCredential.user) {
         toast.success("welcome to House Market");
         navigate("/");

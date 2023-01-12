@@ -23,7 +23,6 @@ const SignUp = () => {
   const navigate=useNavigate();
 
   const onChangeEmail = (events) => {
-    // console.log(events.target.value);
     setFormData((prevState) => ({
       ...prevState,
       [events.target.id]: events.target.value,
@@ -53,7 +52,6 @@ const SignUp = () => {
       toast.success("Welcome To House Market");
     } catch (error) {
       toast.error("Something went wrong with the registration");
-      console.log(error);
     }
   };
 
