@@ -25,15 +25,14 @@ const Profile = () => {
   }
   async function onSubmit() {
     try {
-      if(auth.currentUser.displayName !== name)
-      {
+      if (auth.currentUser.displayName !== name) {
         //update display name in firebase auth
-        await updateProfile(auth.currentUser,{
-          displayName:name,
+        await updateProfile(auth.currentUser, {
+          displayName: name,
         });
         // update name in the fireStore
-        const docRef = doc(db , "users" ,auth.currentUser.uid);
-        await updateDoc(docRef ,{
+        const docRef = doc(db, "users", auth.currentUser.uid);
+        await updateDoc(docRef, {
           name,
         });
       }
