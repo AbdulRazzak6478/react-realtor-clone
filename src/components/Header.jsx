@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import svg from "../assets/logo.svg";
+import svg from "../assets/svg/logo.svg";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 const Header = () => {
   const [pageState, setPageState] = useState("Sign in");
@@ -23,7 +23,7 @@ const Header = () => {
     }
   };
   return (
-    <div className="bg-white border-b shadow-md sticky top z-50">
+    <div className="bg-white border-b shadow-md sticky top z-40">
       <header className=" px-3 max-w-6xl mx-auto">
         <div className="flex">
           <img
