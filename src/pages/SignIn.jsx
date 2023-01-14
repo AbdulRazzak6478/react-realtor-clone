@@ -5,7 +5,6 @@ import img1 from "../assets/sign-in3.jpg";
 import OAuth from "../components/OAuth";
 import { signInWithEmailAndPassword ,getAuth} from "firebase/auth";
 import { toast } from "react-hot-toast";
-
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -14,7 +13,6 @@ const SignIn = () => {
   });
   const { email, password } = formData;
   const navigate = useNavigate();
-
   const onChangeEmail = (events) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -43,7 +41,7 @@ const SignIn = () => {
           <img className="w-full rounded-2xl" src={img1} alt="sign-in-img" />
         </div>
         <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-          <form autoComplete="off" onSubmit={onSubmit}>
+          <form  onSubmit={onSubmit}>
             <input
               className="w-full mb-6 px-3 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out"
               value={email}

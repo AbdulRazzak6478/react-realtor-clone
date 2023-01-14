@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import { toast } from "react-hot-toast";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { FcHome } from "react-icons/fc";
+import { Link } from "react-router-dom";
 const Profile = () => {
   const auth = getAuth();
   const navigate = useNavigate();
@@ -44,7 +46,7 @@ const Profile = () => {
   return (
     <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
       <h1 className="text-3xl font-bold text-center mt-6 ">My Profile</h1>
-      <div className="w-full md:w-[50%] px-6 mt-6">
+      <div className="w-full md:w-[50%]  px-3 mt-6">
         <form>
           {/* Name Input */}
           <input
@@ -67,7 +69,7 @@ const Profile = () => {
             className={`w-full mb-6 px-4 py-2 text-xl text-gray-700 bg-white-700 border border-gray-300 rounded transition ease-in-out  `}
           />
           <div className="flex justify-between text-sm sm:text-lg mb-6">
-            <p className="flex items-center ">
+            <p className="flex items-center whitespace-nowrap ">
               Do you want to change your name?
               <span
                 onClick={() => {
@@ -87,6 +89,18 @@ const Profile = () => {
             </p>
           </div>
         </form>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
+        >
+          <Link
+            to="/create-listing"
+            className="flex justify-center items-center"
+          >
+            <FcHome className="mr-2 text-3xl bg-white rounded-full p-1 border-2" />
+            Sell or Rent Home
+          </Link>
+        </button>
       </div>
     </section>
   );
